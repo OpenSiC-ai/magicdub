@@ -55,27 +55,25 @@ providers, input audio quality, and ffmpeg availability.
 - macOS, Linux, or another shell environment that can run the bundled CLI script
 - macOS、Linux，或其他可以运行随附 CLI 脚本的 shell 环境
 
-Default provider selection uses:
+The starter `.env.example` provider selection uses:
 
-默认 provider 选择如下：
+入门用 `.env.example` 的 provider 选择如下：
 
 - Asset storage: `fal-cdn`
 - 素材存储：`fal-cdn`
-- Vocal separation: `fal-demucs`
-- 人声分离：`fal-demucs`
-- ASR: `fal-wizper`
-- 语音识别：`fal-wizper`
+- Vocal separation: `fal-sam-audio`
+- 人声分离：`fal-sam-audio`
+- ASR: `bailian-fun-asr`
+- 语音识别：`bailian-fun-asr`
 - TTS: `fal-index-tts-2`
 - 语音合成：`fal-index-tts-2`
 - LLM: `google-gemini`
 - 大语言模型：`google-gemini`
 
-The default media providers use fal.ai and need `FAL_KEY` in their provider-local
-`.env` files. The default LLM provider uses Google Gemini and needs
-`GEMINI_API_KEY`.
+This starter selection uses fal.ai for asset storage, vocal separation, and TTS;
+Aliyun Bailian for ASR; and Google Gemini for LLM.
 
-默认媒体 provider 使用 fal.ai，需要在各自 provider 目录的 `.env` 文件中设置 `FAL_KEY`。默认 LLM
-provider 使用 Google Gemini，需要设置 `GEMINI_API_KEY`。
+这组入门选择使用 fal.ai 做素材存储、人声分离和 TTS；使用阿里云百炼做 ASR；使用 Google Gemini 做 LLM。
 
 ## Installation / 安装
 
@@ -116,8 +114,8 @@ The root `.env` selects which provider to use for each capability:
 
 ```bash
 MAGICDUB_ASSET_STORE_PROVIDER=fal-cdn
-MAGICDUB_VOCAL_SEPARATION_PROVIDER=fal-demucs
-MAGICDUB_ASR_PROVIDER=fal-wizper
+MAGICDUB_VOCAL_SEPARATION_PROVIDER=fal-sam-audio
+MAGICDUB_ASR_PROVIDER=bailian-fun-asr
 MAGICDUB_TTS_PROVIDER=fal-index-tts-2
 MAGICDUB_LLM_PROVIDER=google-gemini
 ```
@@ -129,8 +127,8 @@ provider 专属密钥应放在对应 provider 目录中，而不是根目录 `.e
 
 ```bash
 cp providers/asset_store/fal_cdn/.env.example providers/asset_store/fal_cdn/.env
-cp providers/vocal_separation/fal_demucs/.env.example providers/vocal_separation/fal_demucs/.env
-cp providers/asr/fal_wizper/.env.example providers/asr/fal_wizper/.env
+cp providers/vocal_separation/fal_sam_audio/.env.example providers/vocal_separation/fal_sam_audio/.env
+cp providers/asr/bailian_fun_asr/.env.example providers/asr/bailian_fun_asr/.env
 cp providers/tts/fal_index_tts_2/.env.example providers/tts/fal_index_tts_2/.env
 cp providers/llm/google_gemini/.env.example providers/llm/google_gemini/.env
 ```
@@ -140,11 +138,11 @@ Then edit those files and add the required keys:
 然后编辑这些文件并填入必需的 key：
 
 ```bash
-providers/asset_store/fal_cdn/.env          # FAL_KEY
-providers/vocal_separation/fal_demucs/.env  # FAL_KEY
-providers/asr/fal_wizper/.env               # FAL_KEY
-providers/tts/fal_index_tts_2/.env          # FAL_KEY
-providers/llm/google_gemini/.env            # GEMINI_API_KEY
+providers/asset_store/fal_cdn/.env              # FAL_KEY
+providers/vocal_separation/fal_sam_audio/.env   # FAL_KEY
+providers/asr/bailian_fun_asr/.env              # DASHSCOPE_API_KEY
+providers/tts/fal_index_tts_2/.env              # FAL_KEY
+providers/llm/google_gemini/.env                # GEMINI_API_KEY
 ```
 
 Root `.env` and all provider-local `.env` files are ignored by git. Only
